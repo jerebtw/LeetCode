@@ -1,4 +1,3 @@
-#[allow(arithmetic_overflow)]
 fn main() {
   println!("{}", Solution::reverse(123) == 321);
   println!("{}", Solution::reverse(321) == 123);
