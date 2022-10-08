@@ -7,34 +7,42 @@ use convert_case::Casing;
 #[command(author, version, about, long_about = None)]
 struct Args {
   #[arg(short, long)]
-  problem: String,
+  name: String,
 }
 
 fn main() {
   let args = Args::parse();
   let cargo_name: String = args
-    .problem
+    .name
     .split_whitespace()
     .skip(1)
     .collect::<String>()
     .to_case(convert_case::Case::Snake);
   let problem = args
-    .problem
+    .name
     .split_whitespace()
     .next()
     .expect("Get the problem number")
     .replace(".", "");
-  let folder_name = args.problem.replace(".", "");
+  let folder_path = format!(
+    "{}{}",
+    "C:/Users/Jere/Desktop/Software/GitHub/LeetCode/",
+    args.name.replace(".", "")
+  );
 
-  fs::create_dir(folder_name.clone()).expect("Create the problem folder");
+  fs::create_dir(folder_path.clone()).expect("Create the problem folder");
   Command::new("cmd")
     .args([
       "/C",
       &format!(
         "cd {} && cargo init --name {}-{}",
-        folder_name, cargo_name, problem
+        folder_path, cargo_name, problem
       ),
     ])
     .output()
     .expect("Run cargo to init the project");
+  Command::new("cmd")
+    .args(["/C", &format!("cd {} && code .", folder_path)])
+    .output()
+    .expect("Open vscode");
 }
