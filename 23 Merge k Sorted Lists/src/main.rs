@@ -1,4 +1,7 @@
+use std::time::Instant;
+
 fn main() {
+  let start = Instant::now();
   assert_eq!(
     Solution::merge_k_lists(vec![
       vec_to_listnode(vec![1, 4, 5]),
@@ -8,6 +11,7 @@ fn main() {
     vec_to_listnode(vec![6, 5, 4, 4, 3, 2, 1, 1])
   );
   assert_eq!(Solution::merge_k_lists(vec![]), vec_to_listnode(vec![]));
+  println!("{:?}", start.elapsed());
 }
 
 #[derive(PartialEq, Eq, Clone, Debug)]
