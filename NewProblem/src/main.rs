@@ -17,6 +17,8 @@ fn main() {
     .split_whitespace()
     .skip(1)
     .collect::<String>()
+    .replace("(", "")
+    .replace(")", "")
     .to_case(convert_case::Case::Snake);
   let problem = args
     .name
